@@ -19,6 +19,22 @@ class Database:
 # Markdown App GUI
 class MarkdownAppGUI:
     def __init__(self, root):
+        self.preview_text = None
+        self.text_area = None
+        self.logout_button = None
+        self.preview_button = None
+        self.open_button = None
+        self.save_button = None
+        self.main_frame = None
+        self.error_label = None
+        self.register_button = None
+        self.login_button = None
+        self.password_entry = None
+        self.username_entry = None
+        self.right_panel = None
+        self.left_label = None
+        self.left_panel = None
+        self.login_frame = None
         self.root = root
         self.root.title("Markdown Note App")
         self.root.geometry("1200x800")
