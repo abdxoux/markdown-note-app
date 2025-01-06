@@ -39,11 +39,10 @@ The Markdown Note App follows a modular architecture with the following main com
 ### File Structure 
 ### Diagram
 
-```
+
 markdown-note-app/
 │
 ├── database.py
 ├── AppGUI.py
 ├── main.py
 └── markdown_app.db
-```
