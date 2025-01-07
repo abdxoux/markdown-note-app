@@ -9,6 +9,7 @@ import datetime
 ctk.set_appearance_mode("System")  # Set appearance mode
 ctk.set_default_color_theme("blue")  # Set default color theme
 
+
 class MarkdownAppGUI:
     def __init__(self, root):
         self.note_dropdown = None
@@ -49,7 +50,8 @@ class MarkdownAppGUI:
         # Left panel (for aesthetics)
         self.left_panel = ctk.CTkFrame(self.login_frame, width=400, fg_color="#5C4B51")
         self.left_panel.pack(side="left", fill="both", expand=False)
-        self.left_label = ctk.CTkLabel(self.left_panel, text="AUTHENTICATE", font=("Arial", 24, "bold"), text_color="white")
+        self.left_label = ctk.CTkLabel(self.left_panel, text="AUTHENTICATE", font=("Arial", 24, "bold"),
+                                       text_color="white")
         self.left_label.place(relx=0.5, rely=0.5, anchor="center")
 
         # Right panel (for login/register form)
@@ -65,24 +67,18 @@ class MarkdownAppGUI:
         self.password_entry.pack(pady=20)
 
         # Login button
-        self.login_button = ctk.CTkButton(self.right_panel, text="LOGIN", command=self.login, width=200, fg_color="#5C4B51")
+        self.login_button = ctk.CTkButton(self.right_panel, text="LOGIN", command=self.login, width=200,
+                                          fg_color="#5C4B51")
         self.login_button.pack(pady=10)
 
         # Register button
-        self.register_button = ctk.CTkButton(self.right_panel, text="REGISTER NOW", command=self.register, width=200, fg_color="#5C4B51")
+        self.register_button = ctk.CTkButton(self.right_panel, text="REGISTER NOW", command=self.register, width=200,
+                                             fg_color="#5C4B51")
         self.register_button.pack(pady=10)
 
         # Error label
         self.error_label = ctk.CTkLabel(self.right_panel, text="", text_color="red")
         self.error_label.pack(pady=10)
-
-    def login(self):
-        username = self.username_entry.get()
-        password = self.password_entry.get()
-        if self.auth.login(username, password):
-            self.setup_main_screen()
-        else:
-            self.error_label.configure(text="Invalid username or password")
 
     def register(self):
         username = self.username_entry.get()
@@ -91,6 +87,14 @@ class MarkdownAppGUI:
             self.error_label.configure(text="Registration successful", text_color="green")
         else:
             self.error_label.configure(text="Username already exists", text_color="red")
+
+    def login(self):
+        username = self.username_entry.get()
+        password = self.password_entry.get()
+        if self.auth.login(username, password):
+            self.setup_main_screen()
+        else:
+            self.error_label.configure(text="Invalid username or password")
 
     def setup_main_screen(self):
         # Clear the screen
@@ -114,7 +118,8 @@ class MarkdownAppGUI:
         self.open_button.pack(pady=20)
 
         # Preview button
-        self.preview_button = ctk.CTkButton(self.left_panel, text="PREVIEW", command=self.update_preview, fg_color="#7E6A70")
+        self.preview_button = ctk.CTkButton(self.left_panel, text="PREVIEW", command=self.update_preview,
+                                            fg_color="#7E6A70")
         self.preview_button.pack(pady=20)
 
         # Logout button
@@ -200,6 +205,7 @@ class MarkdownAppGUI:
                           fg_color="red").pack(pady=10)
         else:
             messagebox.showinfo("Info", "No notes found")
+
     def load_selected_note(self):
         selected_title = self.note_dropdown.get()
         if selected_title:
@@ -232,5 +238,3 @@ class MarkdownAppGUI:
     def logout(self):
         self.auth.logout()
         self.setup_login_screen()
-
-

@@ -36,13 +36,7 @@ def init_db():
 def hash_password(password):
     return hashlib.sha256(password.encode()).hexdigest()
 
-def verify_user(username, hashed_password):
-    conn = sqlite3.connect('markdown_app.db')
-    c = conn.cursor()
-    c.execute("SELECT password FROM users WHERE username=?", (username,))
-    result = c.fetchone()
-    conn.close()
-    return result and result[0] == hashed_password
+
 
 def register_user(username, hashed_password):
     conn = sqlite3.connect('markdown_app.db')
@@ -57,13 +51,13 @@ def register_user(username, hashed_password):
     finally:
         conn.close()
 
-def save_note(username, title, content, timestamp):
+def verify_user(username, hashed_password):
     conn = sqlite3.connect('markdown_app.db')
     c = conn.cursor()
-    c.execute("INSERT INTO notes (username, title, content, timestamp) VALUES (?, ?, ?, ?)",
-              (username, title, content, timestamp))
-    conn.commit()
+    c.execute("SELECT password FROM users WHERE username=?", (username,))
+    result = c.fetchone()
     conn.close()
+    return result and result[0] == hashed_password
 
 def get_notes(username):
     conn = sqlite3.connect('markdown_app.db')
@@ -72,6 +66,14 @@ def get_notes(username):
     notes = c.fetchall()
     conn.close()
     return notes
+
+def save_note(username, title, content, timestamp):
+    conn = sqlite3.connect('markdown_app.db')
+    c = conn.cursor()
+    c.execute("INSERT INTO notes (username, title, content, timestamp) VALUES (?, ?, ?, ?)",
+              (username, title, content, timestamp))
+    conn.commit()
+    conn.close()
 
 def delete_note(username, title):
     conn = sqlite3.connect('markdown_app.db')
